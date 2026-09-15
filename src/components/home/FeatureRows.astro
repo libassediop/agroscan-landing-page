@@ -1,0 +1,296 @@
+---
+import { Image, Picture } from "astro:assets";
+import analyseImage from "../../assets/images/analyse.png";
+import phoneScan from "../../assets/images/phone-scan.png";
+import ccImage from "../../assets/images/cc.png";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import ImagePanel from "../ui/ImagePanel.astro";
+
+const quickFeatures = [
+  { icon: "leaf-search", title: "Analyse de laboratoire", text: "Vos résultats interprétés en quelques minutes" },
+  { icon: "map-pin", title: "Analyse par localisation", text: "Le type de sol identifié grâce au GPS" },
+  { icon: "clipboard-check", title: "Recommandations sur mesure", text: "Cultures et amendements adaptés" },
+];
+
+const weather = [
+  { label: "pH", value: "6,4", unit: "" },
+  { label: "Humidité", value: "65", unit: "%" },
+  { label: "Mat. org.", value: "3,2", unit: "%" },
+  { label: "Temp.", value: "24", unit: "°C" },
+];
+
+const legend = [
+  { color: "bg-green", label: "Nutriments" },
+  { color: "bg-lime", label: "Structure" },
+  { color: "bg-amber", label: "À amender" },
+];
+
+const healthyChecks = [
+  "Chaulage et fertilisation (P, K) calculés pour votre sol",
+  "Texture, battance et réserve utile évaluées",
+  "Météo locale intégrée à vos décisions",
+];
+
+const companion = [
+  {
+    icon: "sprout",
+    title: "Identification du type de sol",
+    text: "Sableux, limoneux ou argileux : AgroScan détermine le type de sol de votre parcelle à partir d’une analyse ou de sa simple localisation.",
+    checks: ["Carte des sols intégrée", "Texture et structure détaillées", "Aucune compétence technique requise"],
+  },
+  {
+    icon: "sparkle",
+    title: "Recommandations de cultures",
+    text: "Indiquez une culture cible ou laissez AgroScan vous proposer les cultures les mieux adaptées à votre sol, avec les doses d’amendement à apporter.",
+    checks: ["Cultures recommandées par parcelle", "Doses d’amendement calculées", "Rapport PDF à partager"],
+  },
+  {
+    icon: "bell",
+    title: "Arrosage et alertes",
+    text: "Connectez vos capteurs et vos vannes pour piloter l’irrigation selon l’humidité réelle du sol, et recevez des alertes au bon moment.",
+    checks: ["Capteurs d’humidité connectés", "Arrosage automatique par seuil ou planning", "Alertes en cas d’anomalie"],
+  },
+];
+
+const week = [
+  { day: "Lun", value: 68 },
+  { day: "Mar", value: 64 },
+  { day: "Mer", value: 59 },
+  { day: "Jeu", value: 55 },
+  { day: "Ven", value: 51 },
+  { day: "Sam", value: 47, alert: true },
+  { day: "Dim", value: 45, alert: true },
+];
+
+const careTasks = [
+  { icon: "water", title: "Arrosage", sub: "2×/sem." },
+  { icon: "plant-a", title: "Engrais", sub: "Sous 2 sem." },
+  { icon: "sparkle", title: "Chaulage", sub: "Au semis" },
+];
+---
+
+<section class="px-5 pt-12 pb-10 md:px-[30px] lg:pt-[60px] lg:pb-[124px]">
+  <div class="container-x flex flex-col gap-10 md:gap-20 lg:gap-[140px]">
+    <!-- 1. Point once -->
+    <div class="flex flex-col gap-[50px] lg:flex-row lg:items-center lg:justify-between" data-reveal>
+      <div class="flex flex-col gap-[52px] lg:w-[486px]">
+        <div class="flex flex-col gap-6">
+          <h2 class="t-h2">Une analyse.<br />Des réponses claires</h2>
+          <p class="text-body lg:max-w-[466px]">
+            AgroScan lit vos résultats de laboratoire ou localise votre parcelle, détermine le type de sol et produit un rapport agronomique complet, prêt à suivre.
+          </p>
+        </div>
+        <ul class="flex flex-col gap-7">
+          {
+            quickFeatures.map((f) => (
+              <li class="flex items-center gap-5">
+                <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-surface">
+                  <Icon name={f.icon} width={18} height={19} />
+                </span>
+                <div class="flex flex-col gap-0.5">
+                  <h3 class="font-medium">{f.title}</h3>
+                  <p class="text-body">{f.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <ImagePanel class="p-5 md:px-[56px] md:py-[72px]">
+        <div class="flex w-full max-w-[420px] flex-col gap-3">
+          <div class="flex flex-col gap-4 rounded-2xl bg-white px-5 pt-5 sm:flex-row sm:items-end sm:justify-between sm:gap-3 sm:pr-3.5 sm:pl-5">
+            <div class="flex flex-col gap-4 sm:w-[172px] sm:shrink-0 sm:pb-5">
+              <div class="flex flex-col gap-1">
+                <p class="font-display text-lg leading-6 font-bold tracking-[-0.5px]">Ma parcelle</p>
+                <p class="text-[13px] leading-5 text-grey">Analysée il y a 2 jours</p>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                {
+                  weather.map((w) => (
+                    <div class="flex flex-col gap-1.5 rounded-lg bg-surface px-2.5 py-2">
+                      <p class="text-xs leading-4 text-grey">{w.label}</p>
+                      <p class="flex items-start gap-px">
+                        <span class="font-display text-xl leading-6 font-medium tracking-[-0.4px]">{w.value}</span>
+                        <span class="pt-0.5 text-xs leading-4 font-bold">{w.unit}</span>
+                      </p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+            <div class="mx-auto h-[150px] w-[180px] overflow-hidden sm:mx-0 sm:h-[190px] sm:w-auto sm:min-w-0 sm:flex-1">
+              <Image src={analyseImage} alt="" widths={[180, 322]} sizes="180px" class="h-auto w-full sm:h-[220px] sm:object-contain sm:object-top" data-scale-in />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-8 rounded-2xl bg-white p-5">
+            <div class="flex flex-col gap-1">
+              <p class="font-display text-lg leading-6 font-medium tracking-[-0.3px]">Santé du sol</p>
+              <p class="text-[13px] leading-5 text-grey">Score calculé à partir de votre dernière analyse.</p>
+            </div>
+            <div class="flex flex-col gap-3">
+              <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                <p class="font-display text-[32px] leading-9 font-medium tracking-[-0.8px] whitespace-nowrap"><span data-count="60">60</span>%</p>
+                <div class="flex flex-wrap items-center justify-end gap-1.5">
+                  <span class="flex items-center gap-0.5 rounded-md bg-success px-1.5 py-0.5 text-green">
+                    <Icon name="arrow-up" size={14} />
+                    <span class="text-xs leading-4 font-semibold">20%</span>
+                  </span>
+                  <span class="text-xs leading-4 text-body">vs analyse précédente</span>
+                </div>
+              </div>
+              <div class="flex h-2 gap-0.5 overflow-hidden rounded-full">
+                <span class="flex-[249] bg-green"></span>
+                <span class="flex-[30] bg-lime"></span>
+                <span class="flex-[54] bg-amber"></span>
+              </div>
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                {
+                  legend.map((l) => (
+                    <span class="flex items-center gap-1.5">
+                      <span class={`size-2 rounded-[2px] ${l.color}`} />
+                      <span class="text-xs leading-4">{l.label}</span>
+                    </span>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </ImagePanel>
+    </div>
+
+    <!-- 2. Healthy care -->
+    <div class="flex flex-col-reverse gap-[50px] lg:flex-row lg:items-center lg:justify-between" data-reveal>
+      <ImagePanel class="justify-end px-[30px] pt-[60px] md:pt-[82px] md:pr-[130px] md:pl-[103px]">
+        <div class="relative h-[340px] w-[210px] md:h-[484px] md:w-[299px]">
+          <div class="h-full overflow-hidden">
+            <Picture src={phoneScan} formats={["avif", "webp"]} fallbackFormat="webp" alt="Application AgroScan" widths={[210, 299, 420, 598]} sizes="(min-width: 768px) 299px, 210px" class="w-full" />
+          </div>
+          <Image
+            src={ccImage}
+            alt=""
+            widths={[190, 266, 532]}
+            sizes="(min-width: 768px) 266px, 190px"
+            class="absolute top-[-35px] left-[80px] w-[190px] rounded-2xl shadow-[-32px_40px_60px_rgb(18_59_23/0.17)] md:left-[118px] md:w-[266px]"
+          />
+        </div>
+      </ImagePanel>
+
+      <div class="flex flex-col gap-[52px] lg:w-[486px]">
+        <div class="flex flex-col gap-6">
+          <h2 class="t-h2">Un sol sain pour des récoltes durables</h2>
+          <p class="text-body lg:max-w-[456px]">
+            Suivez l’évolution de chaque parcelle et appliquez des recommandations fondées sur des règles agronomiques éprouvées, saison après saison.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-10">
+          <ul class="flex flex-col gap-4">
+            {
+              healthyChecks.map((c) => (
+                <li class="flex items-start gap-3 font-medium">
+                  <Icon name="check" size={13} class="mt-1.5" />
+                  {c}
+                </li>
+              ))
+            }
+          </ul>
+          <Button href="/telecharger/" label="Télécharger gratuitement" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Complete companion -->
+    <div class="flex flex-col gap-[50px] lg:flex-row lg:items-center lg:justify-between" data-reveal>
+      <div class="flex flex-col gap-14 lg:w-[486px]">
+        <h2 class="t-h2">Votre allié agronomique au quotidien</h2>
+        <div class="flex flex-col items-start gap-5">
+          <div class="flex w-full flex-col gap-1" data-accordion-group="always-one">
+            {
+              companion.map((item, i) => (
+                <div
+                  class="flex gap-4 rounded-xl p-4 transition-colors duration-300 data-[open=true]:bg-snow"
+                  data-accordion
+                  data-open={String(i === 1)}
+                >
+                  <Icon name={item.icon} size={16} class="mt-1.5" />
+                  <div class="flex flex-1 flex-col">
+                    <h3 class="text-lg leading-7 font-medium">
+                      <button type="button" class="text-left" data-accordion-toggle aria-expanded={String(i === 1)}>
+                        {item.title}
+                      </button>
+                    </h3>
+                    <div class="accordion-body">
+                      <div>
+                        <div class="flex flex-col gap-5 pt-3">
+                          <p class="text-sm leading-[22px] text-body">{item.text}</p>
+                          <ul class="flex flex-col gap-2.5">
+                            {item.checks.map((c) => (
+                              <li class="flex items-start gap-3 text-sm leading-[22px]">
+                                <Icon name="check" size={13} class="mt-1" />
+                                {c}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <Button href="/telecharger/" label="Télécharger gratuitement" />
+        </div>
+      </div>
+
+      <ImagePanel class="p-3.5 md:px-[56px] md:py-[72px]">
+        <div class="flex w-full max-w-[420px] flex-col gap-3">
+          <div class="flex flex-col gap-5 rounded-2xl bg-white p-5">
+            <div class="flex flex-col gap-1">
+              <p class="font-display text-lg leading-6 font-medium tracking-[-0.3px]">Rapport de la semaine</p>
+              <p class="text-[13px] leading-5 text-grey">Humidité du sol mesurée chaque jour sur la parcelle.</p>
+            </div>
+            <div class="flex h-[150px] items-end gap-2.5">
+              {
+                week.map((d) => (
+                  <div class="flex h-full flex-1 flex-col items-center justify-end gap-2">
+                    <span class:list={["text-xs leading-4 font-medium", d.alert ? "text-amber" : "text-body"]}>{d.value}%</span>
+                    <span
+                      class:list={["w-full origin-bottom rounded-t-md", d.alert ? "bg-amber" : "bg-green"]}
+                      style={`height:${(d.value - 35) * 2}%`}
+                    />
+                    <span class="text-xs leading-4 text-grey">{d.day}</span>
+                  </div>
+                ))
+              }
+            </div>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span class="flex items-center gap-1.5"><span class="size-2 rounded-[2px] bg-green"></span><span class="text-xs leading-4">Humidité correcte</span></span>
+              <span class="flex items-center gap-1.5"><span class="size-2 rounded-[2px] bg-amber"></span><span class="text-xs leading-4">Irrigation requise</span></span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4 rounded-2xl bg-white p-5">
+            <p class="font-display text-lg leading-6 font-medium tracking-[-0.3px]">Actions recommandées</p>
+            <div class="grid grid-cols-3 gap-2">
+              {
+                careTasks.map((t) => (
+                  <div class="flex flex-col gap-2 rounded-lg bg-surface p-3">
+                    <Icon name={t.icon} size={20} class="text-green" />
+                    <div class="flex min-w-0 flex-col gap-0.5">
+                      <p class="text-sm leading-5 font-medium">{t.title}</p>
+                      <p class="text-xs leading-4 text-body">{t.sub}</p>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </ImagePanel>
+    </div>
+  </div>
+</section>

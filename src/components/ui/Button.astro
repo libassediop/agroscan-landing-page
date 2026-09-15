@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  href: string;
+  label: string;
+  variant?: "primary" | "white" | "lime" | "outline" | "soft";
+  icon?: string;
+  class?: string;
+}
+
+const { href, label, variant = "primary", icon, class: className } = Astro.props;
+
+const variants = {
+  primary: "bg-forest text-white",
+  white: "bg-white text-ink",
+  lime: "bg-lime text-forest",
+  outline: "text-forest shadow-[inset_0_0_0_1px_var(--color-forest)]",
+  soft: "bg-white text-body",
+};
+---
+
+<a href={href} class:list={["btn group", variants[variant], className]}>
+  {icon && <Icon name={icon} width={15} height={18} />}
+  <span class="btn-label">
+    <span>{label}</span>
+    <span aria-hidden="true">{label}</span>
+  </span>
+</a>

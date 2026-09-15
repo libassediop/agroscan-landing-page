@@ -1,0 +1,14 @@
+---
+// Fond gris arrondi avec halo vert flouté en bas, utilisé derrière les maquettes
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={["relative isolate flex w-full flex-col items-center lg:w-[532px]", className]} aria-hidden="true">
+  <div class="absolute inset-0 -z-10 overflow-hidden rounded-[32px] bg-surface">
+    <div class="absolute top-full left-1/2 h-[500px] w-[612px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-mint blur-[37px]"></div>
+  </div>
+  <slot />
+</div>

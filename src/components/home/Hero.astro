@@ -1,0 +1,61 @@
+---
+import { Image, Picture } from "astro:assets";
+import phoneHome from "../../assets/images/phone-home.png";
+import ticker1 from "../../assets/images/ticker-1.png";
+import ticker2 from "../../assets/images/ticker-2.png";
+import ticker3 from "../../assets/images/ticker-3.png";
+import ticker4 from "../../assets/images/ticker-4.png";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import { site } from "../../data/site";
+
+const tickerImages = [ticker1, ticker2, ticker3, ticker4];
+---
+
+<section class="section-shell pt-[70px] md:pt-3">
+  <div
+    class="flex flex-col items-center gap-[60px] overflow-hidden rounded-[20px] bg-linear-to-b from-[#fafdf0] to-mint pt-[50px] lg:gap-[93px] lg:pt-[184px] md:pt-[140px]"
+  >
+    <div class="w-full px-5 md:px-[30px]" data-appear>
+      <div class="mx-auto flex max-w-[588px] flex-col items-center gap-6 text-center">
+        <div class="flex flex-wrap items-center justify-center gap-2 rounded-full bg-green/8 px-2.5 py-1">
+          <div class="flex gap-px text-green">
+            {Array.from({ length: 5 }, () => <Icon name="star" width={13} height={14} />)}
+          </div>
+          <p class="text-sm leading-5 font-medium text-green">Noté 4,9/5 par plus de 900 agriculteurs</p>
+        </div>
+        <h1 class="t-h1 text-balance md:w-max md:max-w-[calc(100vw-60px)]">Vos sols mesurés,<br class="hidden md:block" /> vos décisions assurées</h1>
+        <p class="text-lg leading-7 text-body">
+          {site.brand} analyse votre sol, identifie son type et vous recommande les cultures et les amendements adaptés à votre parcelle.
+        </p>
+        <Button href="/telecharger/" label={`Télécharger ${site.brand} gratuitement`} />
+      </div>
+    </div>
+
+    <div class="relative flex h-[348px] w-full justify-center px-[30px] md:h-[578px]" data-appear style="--delay:0.2s">
+      <div class="absolute inset-x-0 top-[70px] h-[105px] overflow-hidden md:top-[182px] md:h-[157px]">
+        <div class="ticker-track flex w-max gap-4">
+          {
+            [...tickerImages, ...tickerImages].map((src, i) => (
+              <Image
+                src={src}
+                alt={i < tickerImages.length ? "Aperçu de l’application" : ""}
+                aria-hidden={i >= tickerImages.length ? "true" : undefined}
+                widths={[180, 268, 536]}
+                sizes="(min-width: 768px) 268px, 180px"
+                loading={i < tickerImages.length ? "eager" : "lazy"}
+                class="h-[105px] w-[180px] rounded-xl object-cover md:h-[157px] md:w-[268px] md:rounded-2xl"
+              />
+            ))
+          }
+        </div>
+        <div class="absolute inset-y-0 left-0 w-1/3 bg-linear-to-r from-mint-2 from-4% to-mint-2/0 to-87%"></div>
+        <div class="absolute inset-y-0 right-0 w-1/3 bg-linear-to-r from-mint-2/0 to-mint-2 to-94%"></div>
+      </div>
+
+      <div class="relative h-full w-[230px] overflow-hidden md:w-[360px]">
+        <Picture src={phoneHome} formats={["avif", "webp"]} fallbackFormat="webp" alt="Application AgroScan" widths={[230, 360, 460, 720]} sizes="(min-width: 768px) 360px, 230px" class="w-full" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+  </div>
+</section>

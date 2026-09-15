@@ -1,0 +1,23 @@
+---
+import Icon from "../ui/Icon.astro";
+import { steps } from "../../data/site";
+---
+
+<div class="relative flex flex-col gap-16 lg:gap-[120px]" data-process>
+  <div class="absolute top-[11px] bottom-[10px] left-[34px] w-1 overflow-hidden bg-surface lg:left-11">
+    <div class="h-full w-full -translate-y-full rounded-full bg-forest opacity-60" data-process-line></div>
+  </div>
+  {
+    steps.map((s, i) => (
+      <div class="group relative flex items-center gap-5" data-step data-active={String(i === 0)}>
+        <span class="grid size-[72px] shrink-0 place-items-center rounded-full bg-surface text-green transition-colors duration-500 group-data-[active=true]:bg-forest group-data-[active=true]:text-white lg:size-[92px]">
+          <Icon name={s.icon} size={28} />
+        </span>
+        <div class="flex flex-col gap-1.5">
+          <h3 class="t-h6b">{s.title}</h3>
+          <p class="text-body">{s.text}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,48 @@
+---
+import { Picture } from "astro:assets";
+import phoneHome from "../assets/images/phone-home.png";
+import Layout from "../layouts/Layout.astro";
+import ProcessSteps from "../components/shared/ProcessSteps.astro";
+import { site } from "../data/site";
+---
+
+<Layout
+  title="Télécharger"
+  description="Téléchargez gratuitement l’application AgroScan sur Android et iOS et analysez vos sols en trois étapes, où que vous soyez."
+>
+  <section class="px-5 pt-[120px] md:px-[30px] lg:pt-[194px]">
+    <div class="container-x flex flex-col items-center gap-16 lg:gap-[105px]">
+      <div class="flex flex-col items-center gap-8" data-appear>
+        <div class="flex flex-col items-center gap-6 text-center">
+          <h1 class="t-h1">Téléchargez {site.brand} gratuitement</h1>
+          <p class="max-w-[472px] text-lg leading-7 text-body">
+            Analysez vos sols où que vous soyez, depuis votre téléphone ou votre tablette.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href={site.appStoreUrl} class="transition-opacity hover:opacity-80">
+            <img src="/images/badge-app-store.svg" alt="Télécharger dans l’App Store" width="187" height="56" class="rounded-xl" />
+          </a>
+          <a href={site.playStoreUrl} class="transition-opacity hover:opacity-80">
+            <img src="/images/badge-google-play.svg" alt="Disponible sur Google Play" width="187" height="56" class="rounded-xl" />
+          </a>
+        </div>
+      </div>
+
+      <div class="h-[400px] w-[300px] overflow-hidden md:h-[530px] md:w-[429px]" data-appear style="--delay:0.2s">
+        <Picture src={phoneHome} formats={["avif", "webp"]} fallbackFormat="webp" alt="Application AgroScan" widths={[300, 429, 600, 858]} sizes="(min-width: 768px) 429px, 300px" class="w-full" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell pb-3">
+    <div class="rounded-[20px] bg-mint px-4 py-[60px] md:px-[30px] lg:pt-[114px] lg:pb-[163px]">
+      <div class="container-x flex flex-col items-center gap-[52px]">
+        <h2 class="t-h2 max-w-[458px] text-center" data-reveal>Démarrez en 3 étapes simples</h2>
+        <div class="w-full max-w-[592px] rounded-[32px] bg-white px-5 py-[30px] md:p-8" data-reveal>
+          <ProcessSteps />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

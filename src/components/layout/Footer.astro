@@ -1,0 +1,67 @@
+---
+import Button from "../ui/Button.astro";
+import { footerColumns, site } from "../../data/site";
+---
+
+<footer class="section-shell pb-3">
+  <div class="relative isolate overflow-hidden rounded-b-[20px] bg-forest px-4 pt-[60px] pb-[40px] text-white md:px-[30px] lg:pt-[144px] lg:pb-[140px]">
+    <img
+      src="/fade.png"
+      alt=""
+      aria-hidden="true"
+      width="1158"
+      height="1166"
+      loading="lazy"
+      decoding="async"
+      class="pointer-events-none absolute top-1/2 left-1/2 -z-10 w-[900px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none md:w-[1300px] lg:w-[1500px]"
+    />
+    <div class="container-x flex flex-col items-center gap-20 lg:gap-40">
+      <div class="flex max-w-[612px] flex-col items-center gap-9 text-center" data-reveal>
+        <a href="/" aria-label="Accueil" class="rounded-2xl bg-white p-1.5"><img src="/images/logo-mark.svg" alt="" width="34" height="34" loading="lazy" decoding="async" /></a>
+        <div class="flex flex-col gap-6">
+          <h2 class="t-h2">Prenez soin de vos sols dès aujourd’hui</h2>
+          <p class="text-white/80">Lancez votre première analyse et obtenez des recommandations en quelques minutes.</p>
+        </div>
+        <Button href="/telecharger/" label={`Télécharger ${site.brand}`} variant="lime" />
+      </div>
+
+      <div class="flex w-full flex-col gap-6">
+        <div
+          class="flex flex-wrap justify-between gap-x-20 gap-y-[30px] border-y border-white/10 py-[50px] lg:flex-nowrap lg:items-center lg:py-20"
+        >
+          {
+            footerColumns.map((col) => (
+              <div class="flex flex-col gap-6">
+                <p class="opacity-50">{col.title}</p>
+                <ul class="flex flex-col gap-2.5 text-surface">
+                  {col.links.map((l) => (
+                    <li>
+                      <a href={l.href} class="transition-opacity hover:opacity-70">
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+          <div class="flex flex-col items-start gap-2.5 lg:items-end">
+            <div class="rounded-[14px] p-1.5 shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1)]">
+              <img src="/images/qr-code.svg" alt="QR code de téléchargement" width="72" height="72" loading="lazy" decoding="async" class="rounded-lg" />
+            </div>
+            <a href="/telecharger/" class="text-surface transition-opacity hover:opacity-70">Télécharger l’app</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-between gap-3 text-sm leading-[22px] text-silver md:flex-row md:items-center">
+          <p>© {site.brand} 2026 · YokkuTech</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="hover:text-white">Confidentialité</a>
+            <span class="size-1 rounded-full bg-silver"></span>
+            <a href="#" class="hover:text-white">Conditions d’utilisation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

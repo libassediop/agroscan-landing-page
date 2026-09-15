@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FeatureHero from "../components/feature/FeatureHero.astro";
+import FeatureCards from "../components/feature/FeatureCards.astro";
+import HappierLife from "../components/feature/HappierLife.astro";
+import Faq from "../components/shared/Faq.astro";
+---
+
+<Layout
+  title="Fonctionnalités"
+  description="Analyse labo ou par GPS, type de sol, cultures recommandées, doses d’amendement, météo et arrosage connecté : tout ce que fait AgroScan."
+  background="bg-surface"
+>
+  <FeatureHero />
+  <FeatureCards />
+  <HappierLife />
+  <Faq variant="plain" />
+</Layout>

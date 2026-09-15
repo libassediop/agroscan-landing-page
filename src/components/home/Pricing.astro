@@ -1,0 +1,27 @@
+---
+import Icon from "../ui/Icon.astro";
+import PricingCards from "../shared/PricingCards.astro";
+
+const perks = ["Démarrage gratuit, sans carte bancaire", "Sans engagement, résiliable à tout moment"];
+---
+
+<section class="px-5 pt-[50px] pb-[60px] md:px-[30px] lg:py-[140px]">
+  <div class="mx-auto flex max-w-[996px] flex-col items-center gap-[52px]">
+    <div class="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-reveal>
+      <h2 class="t-h2 lg:max-w-[486px]">Gratuit pour démarrer, Pro pour aller plus loin</h2>
+      <ul class="flex flex-col gap-3.5 lg:w-[380px]">
+        {
+          perks.map((p) => (
+            <li class="flex items-start gap-3 text-lg leading-7">
+              <Icon name="check-circle" size={16} class="mt-1.5 text-body" />
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="w-full" data-reveal>
+      <PricingCards />
+    </div>
+  </div>
+</section>

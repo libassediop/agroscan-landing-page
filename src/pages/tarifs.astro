@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/ui/Icon.astro";
+import PricingCards from "../components/shared/PricingCards.astro";
+import Faq from "../components/shared/Faq.astro";
+
+const perks = ["Démarrage gratuit, sans carte bancaire", "Sans engagement, résiliable à tout moment"];
+---
+
+<Layout
+  title="Tarifs"
+  description="Commencez gratuitement avec AgroScan, puis passez à l’offre Pro pour des analyses illimitées, des rapports PDF et l’arrosage connecté. Sans engagement."
+>
+  <section class="px-5 pt-[120px] pb-[60px] md:px-[30px] lg:pt-[204px] lg:pb-[140px]">
+    <div class="container-x flex flex-col items-center gap-7">
+      <div class="flex w-full max-w-[996px] flex-col items-center gap-[52px]">
+        <h1 class="t-h1 text-center" data-appear>Évoluez à votre rythme</h1>
+        <div class="w-full" data-appear style="--delay:0.2s">
+          <PricingCards />
+        </div>
+      </div>
+      <ul class="flex flex-wrap justify-center gap-x-8 gap-y-2.5" data-reveal>
+        {
+          perks.map((p) => (
+            <li class="flex items-start gap-2 text-lg leading-7">
+              <Icon name="check-circle-2" size={18} class="mt-1 text-body" />
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Faq title="Des tarifs simples, des réponses claires" variant="mint" />
+</Layout>

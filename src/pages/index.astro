@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/home/Hero.astro";
+import Brands from "../components/home/Brands.astro";
+import FeatureRows from "../components/home/FeatureRows.astro";
+import Services from "../components/home/Services.astro";
+import Testimonials from "../components/home/Testimonials.astro";
+import Process from "../components/home/Process.astro";
+import Pricing from "../components/home/Pricing.astro";
+import Faq from "../components/shared/Faq.astro";
+import { plans, site } from "../data/site";
+
+const appSchema = {
+  "@type": "MobileApplication",
+  name: site.brand,
+  operatingSystem: "Android, iOS",
+  applicationCategory: "BusinessApplication",
+  inLanguage: "fr",
+  description: site.description,
+  publisher: { "@id": "https://agro-scan.com/#organization" },
+  // TODO: prix provisoires, à aligner sur l'offre finale
+  offers: plans.map((plan) => ({
+    "@type": "Offer",
+    name: plan.name,
+    price: plan.price.replace(/[^\d]/g, ""),
+    priceCurrency: "XOF",
+  })),
+};
+---
+
+<Layout schema={[appSchema]}>
+  <Hero />
+  <Brands />
+  <FeatureRows />
+  <Services />
+  <Testimonials />
+  <Process />
+  <Pricing />
+  <Faq />
+</Layout>

@@ -1,0 +1,143 @@
+---
+import { Image } from "astro:assets";
+import soilImage from "../../assets/images/sol-limoneux.webp";
+import maisImage from "../../assets/images/culture-mais.jpg";
+import maniocImage from "../../assets/images/culture-manioc.jpg";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import santeParcelles from "../../assets/images/land.jpg";
+
+const checks = [
+  "Type de sol identifié automatiquement",
+  "Carences en phosphore et potassium détectées",
+  "Recommandations en quelques secondes",
+  "Météo et humidité prises en compte",
+];
+
+const crops = [
+  { image: maisImage, name: "Maïs", detail: "Très adapté" },
+  { image: maniocImage, name: "Manioc", detail: "Chaulage 1,2 t/ha" },
+];
+---
+
+<section class="px-5 py-[60px] md:px-[30px] lg:pt-[144px] lg:pb-[164px]">
+  <div class="container-x flex flex-col items-center gap-14">
+    <h2 class="t-h2 max-w-[516px] text-center" data-reveal>Tout ce qu’il faut pour des sols fertiles</h2>
+
+    <div class="flex w-full flex-col gap-4">
+      <div class="flex flex-col gap-10 rounded-[20px] bg-white p-5 md:p-8 lg:flex-row lg:items-center lg:gap-[83px]" data-reveal>
+        <div class="relative flex min-h-[300px] flex-col justify-between overflow-clip rounded-[20px] bg-surface p-6 md:min-h-[430px] md:p-8 lg:w-[485px] lg:shrink-0">
+          <div class="relative z-10 flex flex-col gap-6">
+            <p class="text-lg leading-6 font-semibold">Santé des parcelles</p>
+            <div class="flex flex-col gap-3 text-[15px] leading-5 font-medium text-body">
+              <p class="flex items-center gap-2.5"><span class="size-2.5 rounded-full bg-green"></span>Parcelles saines (40 %)</p>
+              <p class="flex items-center gap-2.5"><span class="size-2.5 rounded-full bg-lime"></span>Nouvelles parcelles (11 %)</p>
+            </div>
+          </div>
+          <p class="relative z-10 flex items-start gap-1 text-green">
+            <span class="text-[64px] leading-[64px] tracking-[-2px] md:text-[112px] md:leading-[112px]" data-count="51">51</span>
+            <span class="text-[28px] leading-[28px] font-extrabold">%</span>
+          </p>
+          <Image
+            src={santeParcelles}
+            alt=""
+            widths={[140, 250, 500]}
+            sizes="(min-width: 768px) 250px, 140px"
+            class="absolute -right-6 -bottom-6 w-[140px] rounded-none rounded-tl-[28px] shadow-[-24px_24px_48px_rgb(12_75_0/0.12)] md:-right-2 md:-bottom-10 md:w-[250px] md:rounded-tl-[44px]"
+          />
+        </div>
+
+        <div class="flex flex-col items-start gap-8">
+          <div class="flex flex-col gap-9">
+            <div class="flex flex-col gap-4">
+              <h3 class="t-h6b">Diagnostic instantané</h3>
+              <p class="text-lg leading-7 text-body lg:max-w-[538px]">
+                AgroScan transforme vos données de sol en actions concrètes, pour savoir exactement quoi faire sur chaque parcelle.
+              </p>
+            </div>
+            <ul class="flex flex-col gap-3.5">
+              {
+                checks.map((c) => (
+                  <li class="flex items-center gap-3 font-medium">
+                    <Icon name="check-sm" width={20} height={15} />
+                    {c}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <Button href="/telecharger/" label="Télécharger gratuitement" />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 lg:flex-row" data-reveal>
+        <article class="flex flex-1 flex-col gap-6 rounded-[20px] bg-white p-5 md:p-8">
+          <div class="flex flex-col gap-4 rounded-xl bg-surface p-4 sm:flex-row sm:gap-[26px] lg:h-[300px]" aria-hidden="true">
+            <div class="relative h-[249px] w-full shrink-0 overflow-hidden rounded-2xl sm:w-[235px] lg:h-full">
+              <Image src={soilImage} alt="" widths={[235, 470]} sizes="235px" class="size-full object-cover" />
+              <span class="absolute bottom-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-forest backdrop-blur">
+                Sol limoneux
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col justify-between gap-6 py-[18px]">
+              <div>
+                <p class="font-medium">Parcelle Nord · 2,4 ha</p>
+                <p class="text-sm leading-[22px] text-body">Analyse du 12 mars 2027</p>
+              </div>
+              <div class="flex flex-col gap-3">
+                {
+                  crops.map((c) => (
+                    <div class="flex items-center gap-3 rounded-full bg-white py-1.5 pr-5 pl-1.5">
+                      <Image src={c.image} alt="" width={44} height={44} densities={[1, 2]} class="size-11 shrink-0 rounded-full object-cover" />
+                      <div class="flex min-w-0 flex-col">
+                        <p class="text-sm leading-5 font-medium">{c.name}</p>
+                        <p class="truncate text-[13px] leading-5 text-body">{c.detail}</p>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3">
+            <h3 class="t-h6b">Les bonnes cultures au bon endroit</h3>
+            <p class="max-w-[419px] text-body">AgroScan identifie le type de sol de chaque parcelle et classe les cultures qui y réussiront le mieux.</p>
+          </div>
+        </article>
+
+        <article class="flex flex-1 flex-col gap-6 rounded-[20px] bg-white p-5 md:p-8">
+          <div class="flex flex-col justify-between gap-10 rounded-xl bg-surface p-5 lg:h-[300px] md:px-8 md:py-6" aria-hidden="true">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex flex-col items-start gap-2">
+                <span class="rounded-full bg-mint px-2 py-0.5 text-xs leading-5 font-medium text-forest">Humidité du sol</span>
+                <p class="text-[40px] leading-[44px] font-bold tracking-[-1px] text-green"><span data-count="45">45</span>%</p>
+                <p class="text-xs text-body">Capteur · Parcelle Nord</p>
+              </div>
+              <span class="flex shrink-0 items-center gap-1.5 rounded-full bg-[#fdf1d8] whitespace-nowrap px-2.5 py-1 text-xs font-semibold text-[#b36b00]">
+                <Icon name="water" size={12} />
+                Irrigation requise
+              </span>
+            </div>
+            <div class="flex flex-col gap-3">
+              <div class="flex h-12 gap-[1.1%]">
+                {Array.from({ length: 18 }, (_, i) => <span class:list={["flex-1 rounded-[4px]", i < 8 ? "bg-green" : "bg-mint"]} />)}
+              </div>
+              <p class="flex items-center gap-2 text-xs font-semibold tracking-wide text-ink uppercase">
+                <span class="size-1.5 rounded-full bg-ink"></span>Arrosage auto. programmé à 06:00
+              </p>
+              <div class="flex justify-between text-xs text-grey">
+                <span>0 · Alerte</span>
+                <span>50 · Irrig. requise</span>
+                <span>100 · Sain</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3">
+            <h3 class="t-h6b">Arrosez au bon moment</h3>
+            <p class="max-w-[416px] text-body">Les capteurs mesurent l’humidité réelle du sol et déclenchent l’irrigation seulement quand la parcelle en a besoin.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

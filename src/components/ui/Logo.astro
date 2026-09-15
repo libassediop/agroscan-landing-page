@@ -1,0 +1,15 @@
+---
+import { site } from "../../data/site";
+
+interface Props {
+  class?: string;
+  size?: number;
+}
+
+const { class: className, size = 24 } = Astro.props;
+---
+
+<a href="/" class:list={["flex shrink-0 items-center gap-2", className]} aria-label={`${site.brand}, accueil`}>
+  <img src="/images/logo-mark.svg" alt="" width={size} height={size} />
+  <span class="font-display text-lg leading-6 font-bold tracking-[-0.5px]">{site.brand}</span>
+</a>

@@ -1,0 +1,18 @@
+---
+const brands = [
+  { src: "/images/brand-1.svg", w: 103, h: 32 },
+  { src: "/images/brand-2.svg", w: 66, h: 32 },
+  { src: "/images/brand-3.svg", w: 83, h: 32 },
+  { src: "/images/brand-4.svg", w: 124, h: 28 },
+  { src: "/images/brand-5.svg", w: 175, h: 32 },
+];
+---
+
+<section class="px-5 pt-12 pb-10 md:px-[30px] lg:pt-[60px] lg:pb-[70px]">
+  <div class="mx-auto flex max-w-[994px] flex-col items-center gap-8" data-reveal>
+    <p class="text-center text-lg leading-7 font-medium">Ils parlent de nous</p>
+    <div class="flex w-full flex-wrap items-center justify-center gap-x-10 gap-y-6 lg:flex-nowrap lg:justify-between">
+      {brands.map((b) => <img src={b.src} alt="Logo partenaire" width={b.w} height={b.h} loading="lazy" decoding="async" class="object-contain" />)}
+    </div>
+  </div>
+</section>

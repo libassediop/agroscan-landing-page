@@ -1,0 +1,23 @@
+---
+import { Picture } from "astro:assets";
+import scanImage from "../../assets/images/scan.png";
+import ProcessSteps from "../shared/ProcessSteps.astro";
+---
+
+<section id="comment-ca-marche" class="section-shell scroll-mt-6">
+  <div class="rounded-[20px] bg-mint px-4 py-[50px] md:px-[30px] lg:py-[140px]">
+    <div class="container-x flex flex-col items-center gap-[52px]">
+      <h2 class="t-h2 max-w-[484px] text-center" data-reveal>Une agriculture plus précise en trois étapes</h2>
+      <div class="flex w-full flex-col gap-4 lg:flex-row" data-reveal>
+        <div class="flex items-end justify-center rounded-[32px] bg-forest px-8 pt-[48px] lg:min-w-0 lg:flex-[1_1_592px] lg:px-10 lg:pt-[50px]">
+          <div class="h-[290px] w-[260px] overflow-hidden lg:h-[530px] lg:w-[420px]">
+            <Picture src={scanImage} formats={["avif", "webp"]} fallbackFormat="webp" alt="Application AgroScan" widths={[260, 420, 570]} sizes="(min-width: 1200px) 420px, 260px" class="w-full" />
+          </div>
+        </div>
+        <div class="flex items-center rounded-[32px] bg-white px-5 py-[30px] lg:min-w-0 lg:flex-[1_1_592px] lg:p-8">
+          <ProcessSteps />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

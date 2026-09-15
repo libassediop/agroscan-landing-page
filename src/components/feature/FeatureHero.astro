@@ -1,0 +1,60 @@
+---
+import { Image, Picture } from "astro:assets";
+import phoneHome from "../../assets/images/phone-home.png";
+import floatImage from "../../assets/images/float.jpg";
+import avatar1 from "../../assets/images/avatar-1.jpg";
+import avatar2 from "../../assets/images/avatar-2.jpg";
+import avatar3 from "../../assets/images/avatar-3.jpg";
+import avatar4 from "../../assets/images/avatar-4.jpg";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+
+const avatars = [avatar1, avatar2, avatar3, avatar4];
+---
+
+<section class="section-shell pt-[70px] md:pt-3">
+  <div class="overflow-hidden rounded-[20px] bg-linear-to-b from-[#fafdf0] to-mint px-5 pt-[50px] md:px-[30px] md:pt-[140px] lg:pt-[188px]">
+    <div class="container-x flex flex-col items-center gap-10 lg:flex-row lg:items-end">
+      <div class="flex w-full flex-col gap-16 lg:w-[676px] lg:gap-[185px] lg:pb-12" data-appear>
+        <div class="flex flex-col gap-9">
+          <div class="flex flex-col gap-6">
+            <h1 class="t-h1 lg:max-w-[560px]">Des décisions éclairées pour chaque parcelle</h1>
+            <p class="text-lg leading-7 text-body lg:max-w-[433px]">
+              Analysez vos sols, recevez des recommandations précises et pilotez vos cultures en toute confiance.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-4">
+            <Button href="/telecharger/" label="Télécharger gratuitement" />
+            <Button href="#" label="Voir la démo" variant="soft" icon="play" class="px-[31px]" />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <div class="flex">
+            {avatars.map((src, i) => <Image src={src} alt="" width={32} height={32} densities={[1, 2]} class:list={["size-8 rounded-full object-cover", i > 0 && "-ml-2.5"]} />)}
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex gap-px text-green">
+              {Array.from({ length: 5 }, () => <Icon name="star" width={13} height={14} />)}
+            </div>
+            <p class="font-medium">4,9/5 · plus de 900 avis</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative h-[480px] w-[300px] shrink-0 md:h-[693px] md:w-[424px]" data-appear style="--delay:0.2s">
+        <Picture src={phoneHome} formats={["avif", "webp"]} fallbackFormat="webp" alt="Application AgroScan" widths={[300, 424, 600, 848]} sizes="(min-width: 768px) 424px, 300px" class="w-full" loading="eager" fetchpriority="high" />
+        <Image
+          src={floatImage}
+          alt=""
+          widths={[200, 280, 560]}
+          sizes="(min-width: 768px) 280px, 200px"
+          loading="eager"
+          class="absolute top-[100px] -left-[80px] w-[200px] rounded-[14px] md:top-[133px] md:-left-[153px] md:w-[280px]"
+          data-appear
+          style="--delay:0.4s"
+        />
+      </div>
+    </div>
+  </div>
+</section>

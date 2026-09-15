@@ -1,0 +1,58 @@
+---
+import { faqs } from "../../data/site";
+
+interface Props {
+  title?: string;
+  variant?: "surface" | "mint" | "plain";
+}
+
+const { title = "Des questions ? Nous avons les réponses", variant = "surface" } = Astro.props;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
+const backgrounds = {
+  surface: "bg-surface lg:py-[140px]",
+  mint: "bg-mint lg:py-[120px]",
+  plain: "lg:py-[120px]",
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<section id="faq" class="section-shell scroll-mt-6">
+  <div class:list={["rounded-t-[20px] px-4 pt-[50px] pb-[60px] md:px-[30px]", backgrounds[variant]]}>
+    <div class="container-x flex flex-col gap-[52px] lg:flex-row lg:items-start lg:justify-between">
+      <h2 class="t-h2 lg:max-w-[444px]" data-reveal>{title}</h2>
+      <div class="flex flex-col gap-3 lg:w-[588px]" data-accordion-group data-reveal>
+        {
+          faqs.map((item, i) => (
+            <div class="group rounded-3xl bg-white p-6" data-accordion data-open={String(i === 1)}>
+              <h3 class="t-h6">
+                <button type="button" class="flex w-full items-center gap-3 text-left" data-accordion-toggle aria-expanded={String(i === 1)}>
+                  <span class="flex-1">{item.q}</span>
+                  <span class="relative size-7 shrink-0" aria-hidden="true">
+                    <span class="absolute top-[13px] left-[7px] h-0.5 w-3.5 rounded-[3px] bg-body transition-colors group-data-[open=true]:bg-ink" />
+                    <span class="absolute top-[13px] left-[7px] h-0.5 w-3.5 rotate-90 rounded-[3px] bg-body transition-all duration-300 group-data-[open=true]:rotate-0 group-data-[open=true]:bg-ink" />
+                  </span>
+                </button>
+              </h3>
+              <div class="accordion-body">
+                <div>
+                  <p class="pt-4 text-body lg:max-w-[486px]">{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

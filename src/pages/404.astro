@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<Layout title="Page introuvable" noindex>
+  <section class="px-5 pt-[160px] pb-[120px] md:px-[30px] lg:pt-[220px]">
+    <div class="mx-auto flex max-w-[588px] flex-col items-center gap-6 text-center" data-appear>
+      <p class="t-h1 text-green">404</p>
+      <h1 class="t-h2">Cette page n’existe pas</h1>
+      <p class="text-lg leading-7 text-body">La page que vous cherchez a été déplacée ou n’existe plus.</p>
+      <Button href="/" label="Retour à l’accueil" />
+    </div>
+  </section>
+</Layout>

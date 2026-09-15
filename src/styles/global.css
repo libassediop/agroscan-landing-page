@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+/* Polices auto-hébergées (sous-ensemble latin, préchargées dans Layout.astro) */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+}
+/* Polices de secours calibrées pour limiter le décalage de mise en page (CLS) */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans Fallback";
+  src: local("Arial");
+  size-adjust: 104%;
+  ascent-override: 98%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+}
+
+@theme {
+  --breakpoint-lg: 75rem; /* 1200px */
+
+  --font-sans: "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+
+  /* Palette AgroScan (logo, back-office, app mobile) */
+  --color-ink: #1b1e15; /* texte principal */
+  --color-body: #6e7263; /* texte secondaire */
+  --color-forest: #0c4b00; /* vert du logo : fonds sombres, boutons */
+  --color-green: #2e7d32; /* vert de l'app : accents */
+  --color-lime: #b5e315; /* vert lime du logo */
+  --color-mint: #effad0; /* fond vert doux */
+  --color-mint-2: #f1f9d8; /* fondu du ticker */
+  --color-surface: #f7f6f2; /* fond neutre chaud */
+  --color-snow: #fbfbf8;
+  --color-grey: #9a9d8f;
+  --color-slate: #b9bdaf;
+  --color-silver: #d4d8c8;
+  --color-amber: #f9a825;
+  --color-success: #effad0;
+
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  body {
+    @apply font-sans text-ink antialiased;
+  }
+}
+
+/* Typographie */
+@utility t-h1 {
+  @apply font-display text-[40px] leading-[52px] font-medium tracking-[-2px] lg:text-[64px] lg:leading-[72px] lg:tracking-[-2.5px];
+}
+@utility t-h2 {
+  @apply font-display text-[34px] leading-[38px] font-medium tracking-[-1.4px] md:text-[40px] md:leading-[48px] lg:text-[48px] lg:leading-[56px] lg:tracking-[-2px];
+}
+@utility t-h5 {
+  @apply font-display text-[20px] leading-[30px] font-medium tracking-[-0.5px] lg:text-[24px] lg:leading-[36px];
+}
+@utility t-h6 {
+  @apply font-display text-[20px] leading-[28px] font-medium;
+}
+@utility t-h6b {
+  @apply font-display text-[20px] leading-[28px] font-bold tracking-[-0.8px];
+}
+@utility t-stat {
+  @apply font-display text-[32px] leading-[32px] font-medium tracking-[-1px];
+}
+
+/* Conteneurs */
+@utility container-x {
+  @apply mx-auto w-full max-w-[1200px];
+}
+@utility section-shell {
+  @apply px-3;
+}
+
+/* Icônes SVG en masque (couleur = background) */
+@utility icon {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+}
+
+/* Boutons avec texte qui défile au survol */
+@utility btn {
+  @apply relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-6 pt-[15px] pb-[17px] font-display text-base leading-[19.2px] font-bold tracking-[-0.5px] whitespace-nowrap;
+}
+.btn-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.btn-label > span {
+  display: block;
+  transition:
+    transform 0.4s var(--ease-spring),
+    opacity 0.4s var(--ease-spring),
+    filter 0.4s var(--ease-spring);
+}
+.btn-label > span + span {
+  position: absolute;
+  inset: 0;
+  transform: translateY(24px) scale(0.9);
+}
+.group:hover .btn-label > span:first-child {
+  transform: translateY(-24px) scale(0.9);
+}
+.group:hover .btn-label > span + span {
+  transform: translateY(0) scale(1);
+}
+
+/* Ticker infini du hero */
+@keyframes ticker {
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+.ticker-track {
+  animation: ticker 40s linear infinite;
+}
+
+/* Animations d'apparition (CSS natif, sans librairie) */
+@keyframes appear-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+@keyframes appear-down {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-appear] {
+    animation: appear-up 0.9s var(--ease-spring) var(--delay, 0s) both;
+  }
+  [data-appear="down"] {
+    animation-name: appear-down;
+  }
+  .js [data-reveal],
+  .js [data-scale-in] {
+    transition:
+      opacity 0.7s var(--ease-spring),
+      transform 0.9s var(--ease-spring);
+    transition-delay: var(--delay, 0s);
+  }
+  .js [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  .js [data-scale-in]:not(.is-visible) {
+    transform: translateY(40px) scale(0.7);
+  }
+}
+
+/* Compteurs animés : chiffres à chasse fixe, largeur figée par le script */
+[data-count] {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* Accordéons (FAQ, fonctionnalités) */
+.accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.45s var(--ease-spring),
+    opacity 0.35s ease;
+}
+.accordion-body > div {
+  overflow: hidden;
+}
+[data-open="true"] > .accordion-body,
+[data-accordion][data-open="true"] > * > .accordion-body {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Transitions entre pages */
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}

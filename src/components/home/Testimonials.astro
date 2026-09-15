@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import testimonialPhoto from "../../assets/images/agriculteur.jpg";
+import Icon from "../ui/Icon.astro";
+
+const quoteCard = "flex flex-col justify-between gap-10 rounded-3xl bg-surface p-6 min-h-[365px]";
+---
+
+<section class="px-5 py-[60px] md:px-[30px] lg:pt-[144px] lg:pb-[140px]">
+  <div class="container-x flex flex-col items-center gap-14">
+    <h2 class="t-h2 max-w-[560px] text-center" data-reveal>Adopté par les agriculteurs sur le terrain</h2>
+
+    <div class="flex w-full flex-col gap-4">
+      <div class="flex flex-col gap-4 lg:flex-row" data-reveal>
+        <div class="flex flex-col gap-9 rounded-3xl bg-surface p-4 md:flex-row lg:min-w-0 lg:flex-[1_1_864px]">
+          <div class="flex flex-1 flex-col justify-between gap-10 p-5">
+            <div class="flex flex-col gap-4">
+              <Icon name="quote" size={40} />
+              <blockquote class="t-h5">Avant AgroScan, j’épandais l’engrais au hasard. Aujourd’hui je sais exactement ce dont ma parcelle a besoin.</blockquote>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <p class="font-medium">Moussa D.</p>
+              <p class="text-sm leading-[22px] text-body">Producteur maraîcher</p>
+            </div>
+          </div>
+          <div class="relative h-[333px] overflow-hidden rounded-xl md:w-[292px] md:shrink-0">
+            <Image
+              src={testimonialPhoto}
+              alt="Moussa D., producteur maraîcher, dans sa parcelle"
+              width={584}
+              height={390}
+              quality={90}
+              class="size-full object-cover"
+            />
+          </div>
+        </div>
+
+        <div class="flex min-h-[365px] flex-col justify-between rounded-3xl bg-mint px-6 py-5 lg:min-w-0 lg:flex-[1_1_320px]">
+          <p class="t-stat"><span data-count="10">10</span>k+</p>
+          <p class="text-body">Parcelles analysées</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 lg:flex-row" data-reveal>
+        <div class="flex min-h-[365px] flex-col justify-between rounded-3xl bg-forest px-6 py-5 text-white lg:min-w-0 lg:flex-[1_1_282px]">
+          <p class="t-stat"><span data-count="98">98</span>%</p>
+          <p>d’agriculteurs satisfaits</p>
+        </div>
+
+        <div class:list={[quoteCard, "lg:min-w-0 lg:flex-[1_1_443px]"]}>
+          <div class="flex flex-col gap-4">
+            <Icon name="quote" size={40} />
+            <blockquote class="t-h5">Le rapport PDF m’a permis de convaincre ma coopérative d’investir dans le chaulage.</blockquote>
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <p class="font-medium">Awa S.</p>
+            <p class="text-sm leading-[22px] text-body">Coopérative agricole</p>
+          </div>
+        </div>
+
+        <div class:list={[quoteCard, "lg:min-w-0 lg:flex-[1_1_443px]"]}>
+          <div class="flex flex-col gap-4">
+            <Icon name="quote" size={40} />
+            <blockquote class="t-h5">Simple à utiliser, même sans connaissances techniques. Les recommandations sont claires.</blockquote>
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <p class="font-medium">Ibrahima N.</p>
+            <p class="text-sm leading-[22px] text-body">Agriculteur céréalier</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

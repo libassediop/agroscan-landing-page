@@ -1,0 +1,71 @@
+---
+import Icon from "../ui/Icon.astro";
+
+const badges = [
+  { icon: "check-circle", label: "Analyse labo" },
+  { icon: "search", label: "Localisation GPS" },
+  { icon: "leaf", label: "Rapport PDF" },
+];
+
+const cards = [
+  {
+    icon: "bell",
+    title: "Alertes et rappels illimités",
+    text: "Ne manquez plus un arrosage ni une fertilisation : AgroScan vous prévient au bon moment, parcelle par parcelle, selon votre sol et la météo.",
+  },
+  {
+    icon: "search",
+    title: "Diagnostic complet du sol",
+    text: "pH, matière organique, phosphore, potassium : chaque indicateur est interprété et comparé aux seuils agronomiques de référence.",
+  },
+  {
+    icon: "plant-c",
+    title: "Cultures recommandées",
+    text: "Découvrez les cultures les mieux adaptées à votre sol et à votre climat, avec ou sans culture cible définie au départ.",
+  },
+  {
+    icon: "sparkle",
+    title: "Demande d’analyse terrain",
+    text: "Besoin d’un prélèvement ? Faites une demande depuis l’application et un technicien du laboratoire intervient directement sur votre parcelle.",
+  },
+];
+---
+
+<section class="section-shell">
+  <div class="rounded-[20px] bg-surface px-4 py-[60px] md:px-[30px] lg:pt-[144px] lg:pb-[164px]">
+    <div class="container-x flex flex-col items-center gap-14">
+      <div class="flex max-w-[516px] flex-col items-center gap-8 text-center" data-reveal>
+        <div class="flex flex-col items-center gap-6">
+          <h2 class="t-h2 max-w-[516px]">Tout ce dont vos sols ont besoin, dans une seule app</h2>
+          <p class="text-body">
+            Analyses, recommandations, météo et arrosage connecté : AgroScan réunit tous les outils pour cultiver mieux, avec moins d’intrants.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+          {
+            badges.map((b) => (
+              <div class="flex items-center gap-3 rounded-[40px] bg-white/40 px-3 py-2">
+                <Icon name={b.icon} size={22} />
+                <span class="t-h6">{b.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="grid w-full gap-3 md:grid-cols-2 lg:gap-4" data-reveal>
+        {
+          cards.map((c) => (
+            <article class="flex flex-col gap-[72px] rounded-3xl bg-white p-8">
+              <Icon name={c.icon} size={52} />
+              <div class="flex flex-col gap-4">
+                <h3 class="text-lg leading-7 font-medium">{c.title}</h3>
+                <p class="max-w-[470px] text-body">{c.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

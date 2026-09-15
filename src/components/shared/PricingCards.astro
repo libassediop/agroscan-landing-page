@@ -1,0 +1,37 @@
+---
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import { plans } from "../../data/site";
+---
+
+<div class="flex w-full flex-col gap-6 md:flex-row">
+  {
+    plans.map((plan) => (
+      <div class="flex flex-1 flex-col justify-between gap-8 rounded-[32px] bg-surface px-4 pt-4 pb-9">
+        <div class="flex flex-wrap items-center justify-between gap-3 rounded-[20px] bg-white p-5">
+          <div class="flex items-center gap-4">
+            <span class:list={["grid size-[60px] place-items-center rounded-xl", plan.dark ? "bg-forest text-white" : "bg-surface"]}>
+              <Icon name={plan.icon} size={plan.iconSize} />
+            </span>
+            <p class="text-lg leading-7 font-medium">{plan.name}</p>
+          </div>
+          <p class="leading-[27.2px] font-medium">
+            {plan.price}
+            <span class="text-body">{plan.period}</span>
+          </p>
+        </div>
+        <div class="flex flex-col gap-14 px-5">
+          <ul class="flex flex-col gap-3.5">
+            {plan.features.map((f) => (
+              <li class="flex items-start gap-3">
+                <Icon name="check-circle" size={16} class="mt-1" />
+                {f}
+              </li>
+            ))}
+          </ul>
+          <Button href="/telecharger/" label="Commencer" variant={plan.dark ? "primary" : "outline"} class="w-full" />
+        </div>
+      </div>
+    ))
+  }
+</div>

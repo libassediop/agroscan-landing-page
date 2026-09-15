@@ -1,0 +1,114 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Couleur de fond de la page (ex. "bg-surface" sur la page Fonctionnalités) */
+  background?: string;
+  /** Exclut la page des moteurs de recherche (ex. 404) */
+  noindex?: boolean;
+  /** Données structurées JSON-LD propres à la page */
+  schema?: Record<string, unknown>[];
+}
+
+const { title: pageTitle, description = site.description, background = "bg-white", noindex = false, schema = [] } = Astro.props;
+const title = pageTitle ? `${pageTitle} · ${site.brand}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const siteUrl = new URL("/", Astro.site);
+const ogImage = new URL("/og.png", Astro.site);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: site.brand,
+      url: siteUrl.href,
+      logo: new URL("/icon-512.png", Astro.site).href,
+      parentOrganization: { "@type": "Organization", name: "YokkuTech" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      name: site.brand,
+      url: siteUrl.href,
+      inLanguage: "fr",
+      publisher: { "@id": `${siteUrl}#organization` },
+    },
+    ...schema,
+  ],
+};
+
+const pageTransition = {
+  forwards: {
+    old: { name: "page-out", duration: "0.25s", easing: "ease-in", fillMode: "both" },
+    new: { name: "page-in", duration: "0.6s", easing: "cubic-bezier(0.22, 1, 0.36, 1)", fillMode: "both" },
+  },
+  backwards: {
+    old: { name: "page-out", duration: "0.25s", easing: "ease-in", fillMode: "both" },
+    new: { name: "page-in", duration: "0.6s", easing: "cubic-bezier(0.22, 1, 0.36, 1)", fillMode: "both" },
+  },
+};
+---
+
+<!doctype html>
+<html lang="fr" transition:animate="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+
+    <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0c4b00" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={site.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.brand}, l’analyse de sol intelligente`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      document.addEventListener("astro:after-swap", () => document.documentElement.classList.add("js"));
+    </script>
+    <ClientRouter />
+  </head>
+  <body class={background}>
+    <Navbar />
+    <div transition:animate={pageTransition}>
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <script>
+      import "../scripts/interactions";
+    </script>
+  </body>
+</html>

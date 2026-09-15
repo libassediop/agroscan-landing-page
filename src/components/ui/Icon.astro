@@ -1,0 +1,31 @@
+---
+// Icône SVG inlinée au build en masque CSS (aucune requête réseau, couleur = currentColor).
+// Les fichiers sources sont dans src/assets/icons/.
+interface Props {
+  name: string;
+  size?: number;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const { name, size = 16, width = size, height = size, class: className } = Astro.props;
+
+const icons = import.meta.glob<string>("../../assets/icons/*.svg", { query: "?raw", import: "default", eager: true });
+const raw = icons[`../../assets/icons/${name}.svg`];
+if (!raw) throw new Error(`Icône introuvable : ${name}`);
+
+const svg = raw
+  .replace(/\s(id|role|display|class|style|data-[\w-]+|height|width|stroke-dasharray)="[^"]*"/g, "")
+  .replace(/(\d+\.\d{2})\d+/g, "$1")
+  .replace(/(\d)\.0+(?=\D)/g, "$1")
+  .replace(/(\.\d*?[1-9])0+(?=\D)/g, "$1")
+  .replace(/>\s+</g, "><")
+  .replace(/"/g, "'")
+  .trim();
+// Encodage minimal (plus léger que encodeURIComponent)
+const encoded = svg.replace(/[%#<>{}]/g, (c) => encodeURIComponent(c)).replace(/\s+/g, " ");
+const dataUri = `url("data:image/svg+xml,${encoded}")`;
+---
+
+<span class:list={["icon", className]} style={`--icon:${dataUri};width:${width}px;height:${height}px`} aria-hidden="true"></span>
